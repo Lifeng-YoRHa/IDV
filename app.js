@@ -10,7 +10,8 @@ const FEAR_RADIUS = 36;    // 恐惧半径（米），进入即触发追击
 const ESCAPE_DIST = 60;    // 逃脱判定：拉开到此距离
 const STALK_CLOSE = 3.0;   // 游荡期监管者拉近相对距离的速度（米/秒）
 const CATCH_RADIUS = 8;    // 被追上的判定距离（米）
-const STALK_FAR = 180;     // 追击/受击后监管者撤退到的距离
+const HIT_STUN = 2.5;      // 击中后的僵直时间（秒）
+const STALK_FAR = 180;     // 逃脱后监管者撤退到的距离
 const HEAR_RANGE = 160;    // 能听到心跳的最远距离
 const RADAR_RANGE = 200;   // 雷达显示范围
 const ESCAPE_HOLD = 3;     // 逃脱判定：拉开距离后需保持的秒数
@@ -309,6 +310,16 @@ function updateHunter(dt) {
       H.hold += dt;
       if (H.hold >= ESCAPE_HOLD) onEscape();
     } else H.hold = 0;
+  } else if (H.mode === 'stun') {
+    // 击中后的僵直：原地不动，结束后从当前距离直接继续追击
+    H.stunT -= dt;
+    if (H.stunT <= 0) {
+      H.mode = 'chase';
+      H.hold = 0;
+      document.body.classList.add('chase');
+      Snd.startDrone();
+      setState('监管者恢复行动，继续追你！');
+    }
   } else if (H.mode === 'retreat') {
     const p = moveAlong(H.lat, H.lng, brg + Math.PI, 5 * dt);
     H.lat = p.lat; H.lng = p.lng;
@@ -344,8 +355,9 @@ function onHit() {
   flashRed();
   if (G.health <= 0) { G.downed = true; endRun(true); return; }
   document.body.classList.add('injured');
-  G.hunter.mode = 'retreat';
-  setState('你受到了攻击！趁现在拉开距离');
+  G.hunter.mode = 'stun';
+  G.hunter.stunT = HIT_STUN;
+  setState('你受到了攻击！它僵直了，快跑！');
 }
 
 /* ================= 心跳与红光 ================= */
