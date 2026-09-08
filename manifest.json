@@ -1,0 +1,14 @@
+{
+  "name": "心跳追逐 · 趣味间歇跑",
+  "short_name": "心跳追逐",
+  "description": "被监管者追逐的心跳间歇跑",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

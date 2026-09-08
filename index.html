@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>心跳追逐 · 趣味间歇跑</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 开始界面 -->
+<div id="screen-start" class="screen active">
+  <h1>心跳追逐</h1>
+  <p class="subtitle">监管者正在靠近…… 跑起来</p>
+  <div class="panel">
+    <div class="label">本局时长</div>
+    <div class="seg" id="seg-duration">
+      <button data-v="600">10 分钟</button>
+      <button data-v="900">15 分钟</button>
+      <button data-v="1200" class="on">20 分钟</button>
+      <button data-v="1800">30 分钟</button>
+    </div>
+    <div class="label">难度（监管者强度）</div>
+    <div class="seg" id="seg-diff">
+      <button data-v="easy">休闲</button>
+      <button data-v="normal" class="on">标准</button>
+      <button data-v="nightmare">梦魇</button>
+    </div>
+    <div class="label">模式</div>
+    <div class="seg" id="seg-mode">
+      <button data-v="gps" class="on">户外跑步</button>
+      <button data-v="demo">演示（室内）</button>
+    </div>
+  </div>
+  <button id="btn-start" class="big">开始逃跑</button>
+  <div id="history"></div>
+  <p class="tip">请允许定位权限并开启声音 · 跑步时屏幕会保持常亮</p>
+</div>
+
+<!-- 跑步界面 -->
+<div id="screen-run" class="screen">
+  <div id="vignette"></div>
+  <div id="flash"></div>
+  <header>
+    <div id="hud-time">20:00</div>
+    <div id="hud-hearts"><span class="heart">♥</span><span class="heart">♥</span></div>
+  </header>
+  <div id="hud-state">监管者正在附近游荡……</div>
+  <canvas id="radar"></canvas>
+  <div id="hud-stats">
+    <div><b id="hud-speed">0.0</b><i>km/h</i></div>
+    <div><b id="hud-pace">--'--"</b><i>配速</i></div>
+    <div><b id="hud-dist">0.00</b><i>km</i></div>
+  </div>
+  <div id="demo-ctl" hidden>
+    <label>模拟速度 <span id="demo-speed-val">1.5</span> m/s</label>
+    <input type="range" id="demo-speed" min="0" max="6" step="0.1" value="1.5">
+  </div>
+  <button id="btn-end">结束本局</button>
+</div>
+
+<!-- 结算界面 -->
+<div id="screen-end" class="screen">
+  <h1 id="end-title">存活到最后！</h1>
+  <div id="end-stats"></div>
+  <button id="btn-again" class="big">再来一局</button>
+  <button id="btn-home" class="ghost">返回主页</button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
