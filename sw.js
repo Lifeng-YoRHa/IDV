@@ -1,4 +1,4 @@
-const CACHE = 'idv-v2';
+const CACHE = 'idv-v3';
 const FILES = [
   './',
   'index.html',
