@@ -231,7 +231,8 @@ function startRun() {
 
 function begin(lat, lng) {
   G.player.lat = lat; G.player.lng = lng; G.player.hasFix = true;
-  const p = moveAlong(lat, lng, Math.random() * Math.PI * 2, STALK_FAR);
+  // 初始距离：随机方向、60~80 米随机距离
+  const p = moveAlong(lat, lng, Math.random() * Math.PI * 2, 60 + Math.random() * 20);
   G.hunter.lat = p.lat; G.hunter.lng = p.lng;
   G.lastT = performance.now();
   setState('监管者正在附近游荡……');
