@@ -2,9 +2,9 @@
 
 /* ================= 平衡性配置 ================= */
 const DIFFS = {
-  easy:      { label: '休闲', chaseSpeed: 3.0, fearRadius: 45, escapeDist: 55, recoverTime: 80 },
-  normal:    { label: '标准', chaseSpeed: 3.7, fearRadius: 40, escapeDist: 65, recoverTime: 60 },
-  nightmare: { label: '梦魇', chaseSpeed: 4.4, fearRadius: 35, escapeDist: 75, recoverTime: 45 },
+  easy:      { label: '休闲', chaseSpeed: 3.5, fearRadius: 45, escapeDist: 55, recoverTime: 80 },
+  normal:    { label: '标准', chaseSpeed: 4.2, fearRadius: 40, escapeDist: 65, recoverTime: 60 },
+  nightmare: { label: '梦魇', chaseSpeed: 4.7, fearRadius: 35, escapeDist: 75, recoverTime: 45 },
 };
 const CATCH_RADIUS = 8;    // 被追上的判定距离（米）
 const STALK_FAR = 180;     // 追击/受击后监管者撤退到的距离
