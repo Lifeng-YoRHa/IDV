@@ -8,7 +8,7 @@ const DIFFS = {
   nightmare: { label: '噩梦', chaseSpeed: 5.4, stalkSpeed: 3.6 },
 };
 const FEAR_RADIUS = 36;    // 恐惧半径（米），进入即触发追击
-const ESCAPE_DIST = 60;    // 逃脱判定：拉开到此距离
+const ESCAPE_DIST = 50;    // 逃脱判定：拉开到此距离
 const CATCH_RADIUS = 2;    // 被追上的判定距离（米）
 const HIT_STUN = 2.5;      // 击中后的僵直时间（秒）
 const HEAR_RANGE = 160;    // 能听到心跳的最远距离
