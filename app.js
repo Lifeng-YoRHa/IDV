@@ -2,14 +2,13 @@
 
 /* ================= 平衡性配置 ================= */
 const DIFFS = {
-  easy:      { label: '新手', chaseSpeed: 3.5 },
-  normal:    { label: '普通', chaseSpeed: 4.2 },
-  hard:      { label: '困难', chaseSpeed: 4.7 },
-  nightmare: { label: '噩梦', chaseSpeed: 5.4 },
+  easy:      { label: '新手', chaseSpeed: 3.5, stalkSpeed: 2.8 },
+  normal:    { label: '普通', chaseSpeed: 4.2, stalkSpeed: 3.1 },
+  hard:      { label: '困难', chaseSpeed: 4.7, stalkSpeed: 3.4 },
+  nightmare: { label: '噩梦', chaseSpeed: 5.4, stalkSpeed: 3.6 },
 };
 const FEAR_RADIUS = 36;    // 恐惧半径（米），进入即触发追击
 const ESCAPE_DIST = 60;    // 逃脱判定：拉开到此距离
-const STALK_CLOSE = 3.0;   // 游荡期监管者拉近相对距离的速度（米/秒）
 const CATCH_RADIUS = 2;    // 被追上的判定距离（米）
 const HIT_STUN = 2.5;      // 击中后的僵直时间（秒）
 const HEAR_RANGE = 160;    // 能听到心跳的最远距离
@@ -297,10 +296,9 @@ function updateHunter(dt) {
   H.phase += dt;
 
   if (H.mode === 'stalk') {
-    // 以恒定速度拉近相对距离，叠加游荡摆动
-    const spd = P.speed + STALK_CLOSE;
+    // 以恒定速度（不随玩家速度变化）逼近，叠加游荡摆动
     const wander = Math.sin(H.phase * 0.7) * 0.5;
-    const p = moveAlong(H.lat, H.lng, brg + wander, spd * dt);
+    const p = moveAlong(H.lat, H.lng, brg + wander, D.stalkSpeed * dt);
     H.lat = p.lat; H.lng = p.lng;
     if (d < FEAR_RADIUS) startChase();
   } else if (H.mode === 'chase') {
