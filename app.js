@@ -5,7 +5,7 @@ const DIFFS = {
   easy:      { label: '新手', chaseSpeed: 3.5 },
   normal:    { label: '普通', chaseSpeed: 4.2 },
   hard:      { label: '困难', chaseSpeed: 4.7 },
-  nightmare: { label: '噩梦', chaseSpeed: 5.2 },
+  nightmare: { label: '噩梦', chaseSpeed: 5.4 },
 };
 const FEAR_RADIUS = 36;    // 恐惧半径（米），进入即触发追击
 const ESCAPE_DIST = 60;    // 逃脱判定：拉开到此距离
