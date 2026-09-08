@@ -1,4 +1,4 @@
-const CACHE = 'idv-v7';
+const CACHE = 'idv-v8';
 const FILES = [
   './',
   'index.html',
@@ -21,8 +21,17 @@ self.addEventListener('activate', e => {
   );
 });
 
+// 网络优先：有新版本立即生效；离线时回退到缓存
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(hit => hit || fetch(e.request))
+    fetch(e.request)
+      .then(res => {
+        if (res.ok && e.request.method === 'GET') {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, copy));
+        }
+        return res;
+      })
+      .catch(() => caches.match(e.request))
   );
 });
