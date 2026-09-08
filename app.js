@@ -11,7 +11,6 @@ const ESCAPE_DIST = 60;    // 逃脱判定：拉开到此距离
 const STALK_CLOSE = 3.0;   // 游荡期监管者拉近相对距离的速度（米/秒）
 const CATCH_RADIUS = 2;    // 被追上的判定距离（米）
 const HIT_STUN = 2.5;      // 击中后的僵直时间（秒）
-const STALK_FAR = 180;     // 逃脱后监管者撤退到的距离
 const HEAR_RANGE = 160;    // 能听到心跳的最远距离
 const RADAR_RANGE = 200;   // 雷达显示范围
 const ESCAPE_HOLD = 3;     // 逃脱判定：拉开距离后需保持的秒数
@@ -321,13 +320,6 @@ function updateHunter(dt) {
       Snd.startDrone();
       setState('监管者恢复行动，继续追你！');
     }
-  } else if (H.mode === 'retreat') {
-    const p = moveAlong(H.lat, H.lng, brg + Math.PI, 5 * dt);
-    H.lat = p.lat; H.lng = p.lng;
-    if (d > STALK_FAR) {
-      H.mode = 'stalk';
-      setState('监管者正在附近游荡……');
-    }
   }
 }
 
@@ -341,11 +333,12 @@ function startChase() {
 }
 
 function onEscape() {
-  G.hunter.mode = 'retreat';
+  // 逃脱成功：不撤退，原地转入游荡（3.0 m/s 相对速度重新逼近）
+  G.hunter.mode = 'stalk';
   G.stats.escapes++;
   document.body.classList.remove('chase');
   Snd.stopDrone(); Snd.escape();
-  setState('成功逃脱，调整呼吸……');
+  setState('成功逃脱……它正重新逼近');
 }
 
 function onHit() {
